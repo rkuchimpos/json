@@ -1,0 +1,7 @@
+c:\Users\User1\documents\visual studio 2013\Projects\Json\DeserializationTests.cs\obj\Debug\DeserializationTests.cs.csprojResolveAssemblyReference.cache
+c:\Users\User1\documents\visual studio 2013\Projects\Json\DeserializationTests.cs\bin\Debug\DeserializationTests.cs.dll
+c:\Users\User1\documents\visual studio 2013\Projects\Json\DeserializationTests.cs\bin\Debug\DeserializationTests.cs.pdb
+c:\Users\User1\documents\visual studio 2013\Projects\Json\DeserializationTests.cs\bin\Debug\Json.dll
+c:\Users\User1\documents\visual studio 2013\Projects\Json\DeserializationTests.cs\bin\Debug\Json.pdb
+c:\Users\User1\documents\visual studio 2013\Projects\Json\DeserializationTests.cs\obj\Debug\DeserializationTests.cs.dll
+c:\Users\User1\documents\visual studio 2013\Projects\Json\DeserializationTests.cs\obj\Debug\DeserializationTests.cs.pdb

@@ -1,0 +1,5 @@
+c:\users\user1\documents\visual studio 2013\Projects\Json\Json\bin\Debug\Json.dll
+c:\users\user1\documents\visual studio 2013\Projects\Json\Json\bin\Debug\Json.pdb
+c:\users\user1\documents\visual studio 2013\Projects\Json\Json\obj\Debug\Json.dll
+c:\users\user1\documents\visual studio 2013\Projects\Json\Json\obj\Debug\Json.pdb
+c:\users\user1\documents\visual studio 2013\Projects\Json\Json\obj\Debug\Json.csprojResolveAssemblyReference.cache
