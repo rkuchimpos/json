@@ -23,7 +23,7 @@ string json = @"
   'age': 42,
   'married': true,
   'car' : {
-    'name': 'Honda'
+    'name': 'Honda',
     'num_doors': 4
   }
 }";
