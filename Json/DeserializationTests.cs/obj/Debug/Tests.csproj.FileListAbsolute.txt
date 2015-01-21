@@ -5,3 +5,10 @@ c:\Users\User1\documents\visual studio 2013\Projects\Json\DeserializationTests.c
 c:\Users\User1\documents\visual studio 2013\Projects\Json\DeserializationTests.cs\obj\Debug\Tests.csprojResolveAssemblyReference.cache
 c:\Users\User1\documents\visual studio 2013\Projects\Json\DeserializationTests.cs\obj\Debug\DeserializationTests.cs.dll
 c:\Users\User1\documents\visual studio 2013\Projects\Json\DeserializationTests.cs\obj\Debug\DeserializationTests.cs.pdb
+C:\Users\User1\projects\json\Json\DeserializationTests.cs\obj\Debug\Tests.csprojResolveAssemblyReference.cache
+C:\Users\User1\projects\json\Json\DeserializationTests.cs\obj\Debug\DeserializationTests.cs.dll
+C:\Users\User1\projects\json\Json\DeserializationTests.cs\obj\Debug\DeserializationTests.cs.pdb
+C:\Users\User1\projects\json\Json\DeserializationTests.cs\bin\Debug\DeserializationTests.cs.dll
+C:\Users\User1\projects\json\Json\DeserializationTests.cs\bin\Debug\DeserializationTests.cs.pdb
+C:\Users\User1\projects\json\Json\DeserializationTests.cs\bin\Debug\Json.dll
+C:\Users\User1\projects\json\Json\DeserializationTests.cs\bin\Debug\Json.pdb

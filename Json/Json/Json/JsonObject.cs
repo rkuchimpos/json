@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 
-namespace Json.JsonParser
+namespace Json
 {
-    // TODO: add support for dynamic objects
-    public class JsonObject : IDictionary<string, object>, IEnumerable
+    public class JsonObject : DynamicObject, IDictionary<string, object>, IEnumerable
     {
         private IDictionary<string, object> items = new Dictionary<string, object>();
 
@@ -93,6 +93,18 @@ namespace Json.JsonParser
         IEnumerator IEnumerable.GetEnumerator()
         {
             return items.GetEnumerator();
+        }
+
+        public override bool TryGetMember(GetMemberBinder binder, out object result)
+        {
+            return items.TryGetValue(binder.Name, out result);
+        }
+
+        public override bool TrySetMember(SetMemberBinder binder, object value)
+        {
+            items[binder.Name] = value;
+
+            return true;
         }
     }
 }

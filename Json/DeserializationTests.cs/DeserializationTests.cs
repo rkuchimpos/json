@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Json.JsonParser;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Json;
 using System.Collections.Generic;
 using System.Linq;
+using System.Dynamic;
 
 namespace DeserializationTests.cs
 {
@@ -94,6 +94,59 @@ namespace DeserializationTests.cs
             Assert.AreEqual("dingleberry", ((JsonObject)array[1])["name"]);
             Assert.AreEqual(array[2], "Seattle");
         }
+
+        [TestMethod]
+        public void DeserializeAndReturnDynamicObject1()
+        {
+            string json = "{ 'name': 'john', 'age': 37 }";
+            dynamic person = JsonParser.Deserialize(json);
+
+            Assert.AreEqual("john", person.name);
+            Assert.AreEqual(37, person.age);
+        }
+
+        [TestMethod]
+        public void DeserializeAndReturnDynamicObject2()
+        {
+            string json = @"
+            {
+                'name' : 'Lenovo Thinkcentre',
+                'specs' : {
+                    'cpu' : 'Intel Core 2 Duo E8400',
+                    'ram_gb' : 4
+                },
+                'has_os' : true
+            }";
+
+            dynamic computer = JsonParser.Deserialize(json);
+
+            Assert.AreEqual("Lenovo Thinkcentre", computer.name);
+            Assert.AreEqual("Intel Core 2 Duo E8400", computer.specs.cpu);
+            Assert.AreEqual(true, computer.has_os);
+        }
+
+        [TestMethod]
+        public void DeserializeAndReturnDynamicBasicArray()
+        {
+            string json = "[true, false, null]";
+
+            dynamic result = JsonParser.Deserialize(json);
+
+            Assert.AreEqual(true, result[0]);
+            Assert.AreEqual(false, result[1]);
+            Assert.AreEqual(null, result[2]);
+        } 
+
+        [TestMethod]
+        public void DeserializeAndReturnDynamicArray()
+        {
+            string json = @"[{'name': 'joe'}, {'id': 15}]";
+
+            dynamic result = JsonParser.Deserialize(json);
+
+            Assert.AreEqual("joe", result[0]["name"]);
+            Assert.AreEqual(15, result[1]["id"]);
+        } 
     }
 
     class Person

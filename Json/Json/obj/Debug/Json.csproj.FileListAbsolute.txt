@@ -3,3 +3,8 @@ c:\users\user1\documents\visual studio 2013\Projects\Json\Json\bin\Debug\Json.pd
 c:\users\user1\documents\visual studio 2013\Projects\Json\Json\obj\Debug\Json.dll
 c:\users\user1\documents\visual studio 2013\Projects\Json\Json\obj\Debug\Json.pdb
 c:\users\user1\documents\visual studio 2013\Projects\Json\Json\obj\Debug\Json.csprojResolveAssemblyReference.cache
+C:\Users\User1\projects\json\Json\Json\bin\Debug\Json.dll
+C:\Users\User1\projects\json\Json\Json\bin\Debug\Json.pdb
+C:\Users\User1\projects\json\Json\Json\obj\Debug\Json.dll
+C:\Users\User1\projects\json\Json\Json\obj\Debug\Json.pdb
+C:\Users\User1\projects\json\Json\Json\obj\Debug\Json.csprojResolveAssemblyReference.cache

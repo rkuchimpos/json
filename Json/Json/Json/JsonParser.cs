@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Json.JsonParser
+namespace Json
 {
     public enum JsonToken
     {
@@ -32,6 +32,14 @@ namespace Json.JsonParser
             object item = ParseValue(json, ref index);
 
             T instance = (T)GetInstance(item, typeof(T));
+
+            return instance;
+        }
+
+        public static dynamic Deserialize(string json)
+        {
+            int index = 0;
+            dynamic instance = ParseValue(json, ref index);
 
             return instance;
         }
@@ -158,9 +166,9 @@ namespace Json.JsonParser
             return JsonToken.Unknown;
         }
 
-        internal static IDictionary<string, object> ParseObject(string json, ref int index)
+        internal static JsonObject ParseObject(string json, ref int index)
         {
-            IDictionary<string, object> @object = new JsonObject();
+            JsonObject @object = new JsonObject();
             JsonToken token;
 
             GetNextToken(json, ref index);
