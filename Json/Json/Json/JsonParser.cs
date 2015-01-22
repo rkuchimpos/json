@@ -101,7 +101,7 @@ namespace Json
 
         internal static JsonToken GetNextToken(string json, ref int index)
         {
-            index = SkipWhitespace(json, index);
+            index = SkipWhiteSpace(json, index);
 
             char currentChar = json[index];
             index++;
@@ -176,7 +176,7 @@ namespace Json
             while (true)
             {
                 token = PeekNextToken(json, index);
-                index = SkipWhitespace(json, index);
+                index = SkipWhiteSpace(json, index);
 
                 if (token == JsonToken.RightCurlyBracket)
                 {
@@ -194,7 +194,7 @@ namespace Json
                     token = GetNextToken(json, ref index);
                     if (token != JsonToken.Colon)
                     {
-                        throw new NotImplementedException();
+                        throw new InvalidJsonException("Invalid Json");
                     }
 
                     object value;
@@ -222,7 +222,7 @@ namespace Json
             while (true)
             {
                 token = PeekNextToken(json, index);
-                index = SkipWhitespace(json, index);
+                index = SkipWhiteSpace(json, index);
 
                 switch (token)
                 {
@@ -246,7 +246,7 @@ namespace Json
                         array.Add(item);
                         break;
                     default:
-                        throw new NotImplementedException();
+                        throw new InvalidJsonException("Invalid Json");
                 }
             }
         }
@@ -254,7 +254,7 @@ namespace Json
         internal static object ParseValue(string json, ref int index)
         {
             JsonToken currentToken = PeekNextToken(json, index);
-            index = SkipWhitespace(json, index);
+            index = SkipWhiteSpace(json, index);
 
             switch (currentToken)
             {
@@ -276,7 +276,7 @@ namespace Json
                     GetNextToken(json, ref index);
                     return null;
                 default:
-                    throw new NotImplementedException();
+                    throw new InvalidJsonException("Invalid Json");
             }
         }
 
@@ -358,24 +358,24 @@ namespace Json
             }
 
             string number = builder.ToString();
+            object result;
+
             if (number.Contains('.') || number.Contains('E') || number.Contains('e'))
             {
-                double result;
-                if (double.TryParse(number, NumberStyles.Any, CultureInfo.InvariantCulture, out result))
-                {
-                    return result;
-                }
+                double tempResult;
+                double.TryParse(number, NumberStyles.Any, CultureInfo.InvariantCulture, out tempResult);
+
+                result = tempResult;
             }
             else
             {
-                long result;
-                if (long.TryParse(number, NumberStyles.Any, CultureInfo.InvariantCulture, out result))
-                {
-                    return result;
-                }
+                long tempResult;
+                long.TryParse(number, NumberStyles.Any, CultureInfo.InvariantCulture, out tempResult);
+
+                result = tempResult;
             }
 
-            throw new NotImplementedException();
+            return result;
         }
 
         internal static bool IsJsonObject(Type type)
@@ -384,7 +384,7 @@ namespace Json
             return isJsonObject;
         }
 
-        internal static int SkipWhitespace(string json, int index)
+        internal static int SkipWhiteSpace(string json, int index)
         {
             while (char.IsWhiteSpace(json[index]))
             {
@@ -393,5 +393,11 @@ namespace Json
 
             return index;
         }
+    }
+
+    public class InvalidJsonException : Exception
+    {
+        public InvalidJsonException(string message) : base (message)
+        { }
     }
 }

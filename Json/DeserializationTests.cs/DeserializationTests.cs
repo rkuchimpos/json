@@ -146,7 +146,16 @@ namespace DeserializationTests.cs
 
             Assert.AreEqual("joe", result[0]["name"]);
             Assert.AreEqual(15, result[1]["id"]);
-        } 
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidJsonException))]
+        public void ParsingInvalidObjectShouldThrowInvalidJsonException()
+        {
+            string json = "{'name'{ 'john'}";
+
+            dynamic result = JsonParser.Deserialize(json);
+        }
     }
 
     class Person
