@@ -32,3 +32,12 @@ var person = JsonParser.Deserialize<person>(json);
 Console.WriteLine(person.age);      // 42
 Console.WriteLine(person.car.name); // Honda
 ```
+
+##### Dynamic Deserialization
+
+```c#
+string json = "{'name': 'Bill'}";
+
+dynamic person = JsonParser.Deserialize(json);
+Console.WriteLine(person.name); // Bill
+```
