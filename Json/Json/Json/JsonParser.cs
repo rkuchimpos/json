@@ -44,6 +44,101 @@ namespace Json
             return instance;
         }
 
+        public static string Serialize(object item)
+        {
+            StringBuilder builder = new StringBuilder();
+
+            if (item == null)
+            {
+                builder.Append("null");
+            }
+            else if (item.GetType() == typeof(bool))
+            {
+                builder.Append(item.ToString().ToLower());
+            }
+            else if (item.GetType() == typeof(string))
+            {
+                builder.Append(string.Format("\"{0}\"", item));
+            }
+            else if (IsNumeric(item.GetType()))
+            {
+                builder.Append(item);
+            }
+            else if (item is IEnumerable)
+            {
+                builder.Append(SerializeArray(item));
+            }
+            else
+            {
+                builder.Append(SerializeObject(item));
+            }
+            
+            return builder.ToString();
+        }
+
+        internal static string SerializeArray(object item)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append("[");
+
+            IList collection = (IList)item;
+
+            int pos = 0;
+            foreach (var element in collection)
+            {
+                builder.Append(Serialize(element));
+
+                if (++pos < collection.Count)
+                {
+                    builder.Append(",");
+                }
+            }
+
+            builder.Append("]");
+
+            return builder.ToString();
+        }
+
+        internal static string SerializeObject(object item)
+        {
+            IDictionary<string, object> jsonObject = MapClassToDictionary(item);
+            StringBuilder builder = new StringBuilder();
+
+            builder.Append("{");
+
+            int pos = 0;
+            foreach (KeyValuePair<string, object> pair in jsonObject)
+            {
+                builder.Append(string.Format("\"{0}\"", pair.Key));
+                builder.Append(":");
+                builder.Append(Serialize(pair.Value));
+
+                if (++pos < jsonObject.Count)
+                {
+                    builder.Append(",");
+                }
+            }
+
+            builder.Append("}");
+
+            return builder.ToString();
+        }
+
+        internal static bool IsNumeric(Type t)
+        {
+            return t == typeof(byte)
+                || t == typeof(decimal)
+                || t == typeof(double)
+                || t == typeof(float)
+                || t == typeof(int)
+                || t == typeof(long)
+                || t == typeof(sbyte)
+                || t == typeof(short)
+                || t == typeof(uint)
+                || t == typeof(ulong)
+                || t == typeof(ushort);
+        }
+
         // TODO: add support for creating instances of collection types
         internal static object GetInstance(object @object, Type type)
         {
@@ -89,6 +184,21 @@ namespace Json
             }
 
             return instance;
+        }
+
+        internal static IDictionary<string, object> MapClassToDictionary(object item)
+        {
+            Type type = item.GetType();
+            IDictionary<string, object> jsonObject = new Dictionary<string,object>();
+
+            foreach (var propInfo in type.GetProperties())
+            {
+                string name = propInfo.Name;
+                object value = propInfo.GetValue(item);
+                jsonObject.Add(name, value);
+            }
+
+            return jsonObject;
         }
 
         internal static JsonToken PeekNextToken(string json, int index)

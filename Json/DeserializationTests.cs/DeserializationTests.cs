@@ -135,7 +135,7 @@ namespace DeserializationTests.cs
             Assert.AreEqual(true, result[0]);
             Assert.AreEqual(false, result[1]);
             Assert.AreEqual(null, result[2]);
-        } 
+        }
 
         [TestMethod]
         public void DeserializeAndReturnDynamicArray()
@@ -156,6 +156,7 @@ namespace DeserializationTests.cs
 
             dynamic result = JsonParser.Deserialize(json);
         }
+
     }
 
     class Person
@@ -167,11 +168,11 @@ namespace DeserializationTests.cs
     class Computer
     {
         public string name { get; set; }
-        public specs specs { get; set; }
+        public Specs specs { get; set; }
         public bool has_os { get; set; }
     }
 
-    class specs
+    class Specs
     {
         public string cpu { get; set; }
         public long ram_gb { get; set; }
