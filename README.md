@@ -2,6 +2,7 @@
 
 ## Usage
 
+##### Deserialization
 ```c#
 public class person
 {
@@ -40,4 +41,18 @@ string json = "{'name': 'Bill'}";
 
 dynamic person = JsonParser.Deserialize(json);
 Console.WriteLine(person.name); // Bill
+```
+
+##### Serialization
+
+```c#
+public class Point
+{
+  public int X { get; set; }
+  public int Y { get; set; }
+}
+
+var point = new Point() { X = 3, Y = 4 };
+
+string serialized = JsonParser.Serialize(point); // {"X":3,"Y":4}
 ```
