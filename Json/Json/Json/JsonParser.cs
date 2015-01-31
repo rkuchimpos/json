@@ -52,11 +52,11 @@ namespace Json
             {
                 builder.Append("null");
             }
-            else if (item.GetType() == typeof(bool))
+            else if (item is bool)
             {
                 builder.Append(item.ToString().ToLower());
             }
-            else if (item.GetType() == typeof(string))
+            else if (item is string)
             {
                 builder.Append(string.Format("\"{0}\"", item));
             }
@@ -67,6 +67,16 @@ namespace Json
             else if (item is IEnumerable)
             {
                 builder.Append(SerializeArray(item));
+            }
+            else if (item is DateTime)
+            {
+                string date = ((DateTime)item).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssK", CultureInfo.InvariantCulture);
+                builder.Append(string.Format("\"{0}\"", date));
+            }
+            else if (item is DateTimeOffset)
+            {
+                string date = ((DateTimeOffset)item).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssK", CultureInfo.InvariantCulture);
+                builder.Append(string.Format("\"{0}\"", date));
             }
             else
             {
@@ -139,7 +149,7 @@ namespace Json
                 || t == typeof(ushort);
         }
 
-        // TODO: add support for creating instances of collection types
+        // TODO: Add support for creating instances of collection types
         internal static object GetInstance(object @object, Type type)
         {
             object instance;
@@ -156,7 +166,7 @@ namespace Json
             return instance;
         }
 
-        // TODO: optimize method with expression trees or dynamic code generation
+        // TODO: Optimize method with expression trees or dynamic code generation
         internal static object MapJsonObjectToClass(JsonObject jsonObject, Type type)
         {
             object instance = Activator.CreateInstance(type);
@@ -171,7 +181,7 @@ namespace Json
                 {
                     object value = jsonObject[propName];
 
-                    // handles json objects within json objects
+                    // Handles json objects within json objects
                     if (IsJsonObject(value.GetType()))
                     {
                         Type nestedType = propInfo.PropertyType;
@@ -281,7 +291,7 @@ namespace Json
             JsonObject @object = new JsonObject();
             JsonToken token;
 
-            GetNextToken(json, ref index);
+            index++;
 
             while (true)
             {
@@ -455,7 +465,7 @@ namespace Json
             return builder.ToString();
         }
 
-        // TODO: support other numeric data types
+        // TODO: Support other numeric data types
         internal static object ParseNumber(string json, ref int index)
         {
             char[] validChars = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', '-', '+', 'E', 'e' };

@@ -19,6 +19,14 @@ namespace DeserializationTests.cs
         }
 
         [TestMethod]
+        public void SerialieEmptyObject()
+        {
+            string serialized = JsonParser.Serialize(new object());
+
+            Assert.AreEqual("{}", serialized);
+        }
+
+        [TestMethod]
         public void SerializeClassWithInnerClass()
         {
             Dot p = new Dot() { color = "orange", description = null, coords = new Point { x = 4, y = 9 } };
@@ -74,6 +82,26 @@ namespace DeserializationTests.cs
             Foo foo = new Foo() { A = "Hello", B = new string[] {"X", "Y", "Z"}, C = 42 };
             string serialized = JsonParser.Serialize(foo);
             string expected = "{\"A\":\"Hello\",\"B\":[\"X\",\"Y\",\"Z\"],\"C\":42}";
+
+            Assert.AreEqual(expected, serialized);
+        }
+
+        [TestMethod]
+        public void SerializeStringWithEscapedChars()
+        {
+            string toSerialize = "Hello,\t\tWorld";
+            string serialized = JsonParser.Serialize(toSerialize);
+            string expected = "\"Hello,\t\tWorld\"";
+
+            Assert.AreEqual(expected, serialized);
+        }
+
+        [TestMethod]
+        public void SerializeDateTime()
+        {
+            DateTime date = new DateTime(2015, 1, 31, 0, 0, 0, DateTimeKind.Utc);
+            string serialized = JsonParser.Serialize(date);
+            string expected = "\"2015-01-31T00:00:00Z\"";
 
             Assert.AreEqual(expected, serialized);
         }
