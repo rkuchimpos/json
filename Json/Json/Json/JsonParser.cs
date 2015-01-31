@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Json
 {
-    public enum JsonToken
+    enum JsonToken
     {
         LeftCurlyBracket,
         RightCurlyBracket,
