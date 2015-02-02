@@ -59,12 +59,12 @@ namespace DeserializationTests.cs
         {
             string json = @"
             {
-                'name' : 'Lenovo Thinkcentre',
-                'specs' : {
-                    'cpu' : 'Intel Core 2 Duo E8400',
-                    'ram_gb' : 4
+                ""name"" : ""Lenovo Thinkcentre"",
+                ""specs"" : {
+                    ""cpu"" : ""Intel Core 2 Duo E8400"",
+                    ""ram_gb"" : 4
                 },
-                'has_os' : true
+                ""has_os"" : true
             }";
 
             var computer = JsonParser.Deserialize<Computer>(json);
@@ -75,7 +75,7 @@ namespace DeserializationTests.cs
         [TestMethod]
         public void DeserializeBasicArray()
         {
-            string json = @"[ 'Los Angeles', 'New York', 'Seattle']";
+            string json = @"[ ""Los Angeles"", ""New York"", ""Seattle""]";
 
             var array = JsonParser.Deserialize<List<object>>(json);
 
@@ -86,7 +86,7 @@ namespace DeserializationTests.cs
         [TestMethod]
         public void DeserializeArray()
         {
-            string json = @"[ 'Los Angeles', {'name':'dingleberry'}, 'Seattle']";
+            string json = @"[ ""Los Angeles"", {""name"":""dingleberry""}, ""Seattle""]";
 
             var array = JsonParser.Deserialize<List<object>>(json);
 
@@ -98,7 +98,7 @@ namespace DeserializationTests.cs
         [TestMethod]
         public void DeserializeAndReturnDynamicObject1()
         {
-            string json = "{ 'name': 'john', 'age': 37 }";
+            string json = "{\"name\": \"john\", \"age\": 37 }";
             dynamic person = JsonParser.Deserialize(json);
 
             Assert.AreEqual("john", person.name);
@@ -110,12 +110,12 @@ namespace DeserializationTests.cs
         {
             string json = @"
             {
-                'name' : 'Lenovo Thinkcentre',
-                'specs' : {
-                    'cpu' : 'Intel Core 2 Duo E8400',
-                    'ram_gb' : 4
+                ""name"" : ""Lenovo Thinkcentre"",
+                ""specs"" : {
+                    ""cpu"" : ""Intel Core 2 Duo E8400"",
+                    ""ram_gb"" : 4
                 },
-                'has_os' : true
+                ""has_os"" : true
             }";
 
             dynamic computer = JsonParser.Deserialize(json);
@@ -140,7 +140,7 @@ namespace DeserializationTests.cs
         [TestMethod]
         public void DeserializeAndReturnDynamicArray()
         {
-            string json = @"[{'name': 'joe'}, {'id': 15}]";
+            string json = @"[{""name"": ""joe""}, {""id"": 15}]";
 
             dynamic result = JsonParser.Deserialize(json);
 
@@ -152,11 +152,10 @@ namespace DeserializationTests.cs
         [ExpectedException(typeof(InvalidJsonException))]
         public void ParsingInvalidObjectShouldThrowInvalidJsonException()
         {
-            string json = "{'name'{ 'john'}";
+            string json = "{\"name\"{ \"john\"}";
 
             dynamic result = JsonParser.Deserialize(json);
         }
-
     }
 
     class Person

@@ -19,7 +19,7 @@ namespace DeserializationTests.cs
         }
 
         [TestMethod]
-        public void SerialieEmptyObject()
+        public void SerializeEmptyObject()
         {
             string serialized = JsonParser.Serialize(new object());
 

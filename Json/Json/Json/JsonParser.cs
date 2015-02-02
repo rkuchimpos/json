@@ -309,7 +309,7 @@ namespace Json
                 }
                 else
                 {
-                    string name = ParseString(json, ref index);
+                    string name = ParseString(json.ToCharArray(), ref index);
 
                     token = GetNextToken(json, ref index);
                     if (token != JsonToken.Colon)
@@ -383,7 +383,7 @@ namespace Json
                 case JsonToken.LeftBracket:
                     return ParseArray(json, ref index);
                 case JsonToken.StringMarker:
-                    return ParseString(json, ref index);
+                    return ParseString(json.ToCharArray(), ref index);
                 case JsonToken.Number:
                     return ParseNumber(json, ref index);
                 case JsonToken.BoolTrue:
@@ -400,13 +400,13 @@ namespace Json
             }
         }
 
-        internal static string ParseString(string json, ref int index)
+        internal static string ParseString(char[] json, ref int index)
         {
             StringBuilder builder = new StringBuilder();
 
             index++;
 
-            while (json[index] != '"' && json[index] != '\'')
+            while (json[index] != '"')
             {
                 if (json[index] == '\\')
                 {
@@ -420,33 +420,40 @@ namespace Json
                     switch (nextChar)
                     {
                         case '"':
-                            builder.Append('\"');
+                            builder.Append('"');
+                            index++;
                             break;
                         case '\\':
                             builder.Append('\\');
+                            index++;
                             break;
                         case '/':
                             builder.Append('/');
+                            index++;
                             break;
                         case 'b':
                             builder.Append('\b');
+                            index++;
                             break;
                         case 'f':
                             builder.Append('\f');
+                            index++;
                             break;
                         case 'n':
                             builder.Append('\n');
+                            index++;
                             break;
                         case 'r':
                             builder.Append('\r');
+                            index++;
                             break;
                         case 'u':
-                            if (json.Length - index < 4)
+                            if (json.Length - index < 5)
                             {
                                 break;
                             }
                             int number;
-                            if (int.TryParse(json.Substring(index, 4), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out number))
+                            if (int.TryParse(new string(json, index++, 4), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out number))
                             {
                                 builder.Append((char)number);
                                 index += 4;
