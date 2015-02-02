@@ -20,12 +20,12 @@ public class car
 
 string json = @"
 {
-  'name': 'John Doe',
-  'age': 42,
-  'married': true,
-  'car' : {
-    'name': 'Honda',
-    'num_doors': 4
+  ""name"": ""John Doe"",
+  ""age"": 42,
+  ""married"": true,
+  ""car"" : {
+    ""name"": ""Honda"",
+    ""num_doors"": 4
   }
 }";
 
@@ -37,7 +37,7 @@ Console.WriteLine(person.car.name); // Honda
 ##### Dynamic Deserialization
 
 ```c#
-string json = "{'name': 'Bill'}";
+string json = "{\"name\": \"Bill\"}";
 
 dynamic person = JsonParser.Deserialize(json);
 Console.WriteLine(person.name); // Bill
