@@ -1,6 +1,8 @@
-# C# JSON Parser (in development)
+# C# JSON Parser
 
 ## Usage
+
+Note: Property names are case sensitive.
 
 ##### Deserialization
 ```c#
